@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calculadora Simples</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f0f0f0;
+      margin: 0;
+    }
+
+    .calculator {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      width: 260px;
+    }
+
+    .display {
+      width: 100%;
+      height: 50px;
+      font-size: 24px;
+      text-align: right;
+      margin-bottom: 15px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    button {
+      padding: 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      background-color: #e0e0e0;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background-color: #d4d4d4;
+    }
+
+    .equal {
+      grid-column: span 2;
+      background-color: #4caf50;
+      color: white;
+    }
+
+    .equal:hover {
+      background-color: #45a049;
+    }
+
+    .clear {
+      background-color: #f44336;
+      color: white;
+    }
+
+    .clear:hover {
+      background-color: #d32f2f;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" class="display" id="display" disabled />
+    <div class="buttons" id="buttons"></div>
+  </div>
+
+  <script>
+    const display = document.getElementById('display');
+    const buttonsContainer = document.getElementById('buttons');
+
+    const buttons = [
+      '7', '8', '9', '/',
+      '4', '5', '6', '*',
+      '1', '2', '3', '-',
+      '0', '.', '=', '+',
+      'C'
+    ];
+
+    buttons.forEach(btn => {
+      const button = document.createElement('button');
+      button.textContent = btn;
+
+      if (btn === '=') button.classList.add('equal');
+      if (btn === 'C') button.classList.add('clear');
+
+      button.addEventListener('click', () => handleClick(btn));
+      buttonsContainer.appendChild(button);
+    });
+
+    function handleClick(value) {
+      if (value === 'C') {
+        display.value = '';
+      } else if (value === '=') {
+        try {
+          display.value = eval(display.value);
+        } catch {
+          display.value = 'Erro';
+        }
+      } else {
+        display.value += value;
+      }
+    }
+  </script>
+</body>
+</html>
